@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Analytics Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <body>
+        <h1>Axios Test</h1>
+        <script>
+          // Example: Fetch data from a public API
+          axios.get('https://jsonplaceholder.typicode.com/posts/1')
+            .then(response => {
+              console.log('Data fetched:', response.data);
+              // Example: Display data on the webpage
+              document.body.innerHTML += `<p><strong>Title:</strong> ${response.data.title}</p>`;
+            })
+            .catch(error => {
+              console.error('Error fetching data:', error);
+            });
+        </script> -->
+      </body>
+      </html>
+</head>
+<body>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </button>
+
+    <div id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-container">
+                <svg class="logo-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                </svg>
+                <span class="logo-text">Training Analytics</span>
+            </div>
+            <button id="closeMenu" class="close-menu" aria-label="Close menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#dashboard" class="active">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="14" width="7" height="7"></rect>
+                    <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                Dashboard
+            </a></li>
+            <li><a href="#metrics">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 20V10"></path>
+                    <path d="M18 20V4"></path>
+                    <path d="M6 20v-4"></path>
+                </svg>
+                metrics
+            </a></li>
+            <li><a href="#reports">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                Reports
+            </a></li>
+            <li><a href="#data-management">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path>
+                    <polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon>
+                </svg>
+                Data Management
+            </a></li>
+        </ul>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <main>
+        <section id="dashboard" class="dashboard-container">
+            <h1>Training Effectiveness Dashboard</h1>
+            
+            <div class="dashboard-summary">
+                <div class="summary-tile">
+                    <div class="tile-icon">👥</div>
+                    <div class="tile-content">
+                        <h3>Active Learners</h3>
+                        <p class="tile-number">1,247</p>
+                        <p class="tile-trend positive">↑ 12% from last month</p>
+                    </div>
+                </div>
+                <div class="summary-tile">
+                    <div class="tile-icon">📊</div>
+                    <div class="tile-content">
+                        <h3>Average ROI (₹)</h3>
+                        <p class="tile-number">167%</p>
+                        <p class="tile-trend positive">↑ 15% from last month</p>
+                    </div>
+                </div>
+                <div class="summary-tile">
+                    <div class="tile-icon">🎯</div>
+                    <div class="tile-content">
+                        <h3>Completion Rate</h3>
+                        <p class="tile-number">87%</p>
+                        <p class="tile-trend negative">↓ 3% from last month</p>
+                    </div>
+                </div>
+                <div class="summary-tile">
+                    <div class="tile-icon">💰</div>
+                    <div class="tile-content">
+                        <h3>Budget Utilized</h3>
+                        <p class="tile-number">₹14.5L</p>
+                        <p class="tile-trend neutral">65% of total</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="dashboard-card wide">
+                    <div class="card-header">
+                        <h3>Training Performance Overview</h3>
+                        <div class="card-actions">
+                            <select id="performanceTimeRange" class="time-range-select">
+                                <option value="week">This Week</option>
+                                <option value="month" selected>This Month</option>
+                                <option value="quarter">This Quarter</option>
+                                <option value="year">This Year</option>
+                                <option value="custom">Custom Range</option>
+                            </select>
+                        </div>
+                    </div>
+                    <canvas id="roiChart"></canvas>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>Upcoming Programs</h3>
+                        <div class="card-actions">
+                            <button class="view-all-btn" id="viewAllPrograms">View All</button>
+                            <!-- <button class="add-program-btn"> -->
+                                <a href="#data-input-section">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    </svg>
+                                    Add Program
+                                </a>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="upcoming-programs">
+                        <div class="program-item">
+                            <div class="program-info">
+                                <h4>Advanced JavaScript</h4>
+                                <p>Starts: Mar 15, 2024</p>
+                            </div>
+                            <span class="program-status scheduled">Scheduled</span>
+                        </div>
+                        <div class="program-item">
+                            <div class="program-info">
+                                <h4>Leadership Skills</h4>
+                                <p>Starts: Mar 20, 2024</p>
+                            </div>
+                            <span class="program-status scheduled">Scheduled</span>
+                        </div>
+                        <div class="program-item">
+                            <div class="program-info">
+                                <h4>Project Management</h4>
+                                <p>Starts: Apr 1, 2024</p>
+                            </div>
+                            <span class="program-status scheduled">Scheduled</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-card">
+                    <h3>Completion Rates</h3>
+                    <canvas id="completionChart"></canvas>
+                </div>
+
+                <div class="dashboard-card">
+                    <h3>Performance Impact</h3>
+                    <canvas id="performanceChart"></canvas>
+                </div>
+
+                <div class="dashboard-card wide">
+                    <div class="card-header">
+                        <h3>Recent Activities</h3>
+                        <div class="card-actions">
+                            <button class="refresh-btn">↻ Refresh</button>
+                        </div>
+                    </div>
+                    <div class="activity-feed">
+                        <div class="activity-item">
+                            <div class="activity-icon completed">✓</div>
+                            <div class="activity-content">
+                                <p><strong>Technical Skills Workshop</strong> completed with 92% success rate</p>
+                                <span class="activity-time">2 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon started">▶</div>
+                            <div class="activity-content">
+                                <p><strong>Leadership Training</strong> started with 25 participants</p>
+                                <span class="activity-time">5 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon updated">↑</div>
+                            <div class="activity-content">
+                                <p><strong>Communication Skills</strong> materials updated</p>
+                                <span class="activity-time">1 day ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>Learning Engagement Distribution</h3>
+                        <div class="card-actions">
+                            <div class="time-period-dropdown">
+                                <select id="engagementPeriod">
+                                    <option value="week">This Week</option>
+                                    <option value="month" selected>This Month</option>
+                                    <option value="quarter">This Quarter</option>
+                                    <option value="year">This Year</option>
+                                    <option value="custom">Custom Range</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="engagement-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Total Learners</span>
+                            <span class="stat-value">1,247</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Avg. Session Time</span>
+                            <span class="stat-value">45 mins</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Completion Rate</span>
+                            <span class="stat-value">87%</span>
+                        </div>
+                    </div>
+                    <canvas id="engagementChart"></canvas>
+                    <div class="engagement-legend">
+                        <div class="legend-item">
+                            <span class="dot high"></span>
+                            <div class="legend-info">
+                                <span class="legend-label">Highly Engaged</span>
+                                <span class="legend-desc">Daily active participation</span>
+                            </div>
+                        </div>
+                        <div class="legend-item">
+                            <span class="dot moderate"></span>
+                            <div class="legend-info">
+                                <span class="legend-label">Moderately Engaged</span>
+                                <span class="legend-desc">Weekly active participation</span>
+                            </div>
+                        </div>
+                        <div class="legend-item">
+                            <span class="dot minimal"></span>
+                            <div class="legend-info">
+                                <span class="legend-label">Minimally Engaged</span>
+                                <span class="legend-desc">Monthly active participation</span>
+                            </div>
+                        </div>
+                        <div class="legend-item">
+                            <span class="dot disengaged"></span>
+                            <div class="legend-info">
+                                <span class="legend-label">Disengaged</span>
+                                <span class="legend-desc">No recent activity</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="data-input-section" class="data-input-section dashboard-card">
+                <div class="card-header">
+                    <h3>Add Training Data</h3>
+                    <div class="card-actions">
+                        <button type="button" class="clear-form-btn">Clear Form</button>
+                    </div>
+                </div>
+                <form id="trainingDataForm" class="modern-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="programName">Program Name</label>
+                            <input type="text" id="programName" placeholder="Enter program name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="participants">Number of Participants</label>
+                            <input type="number" id="participants" placeholder="Enter number of participants" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="completionRate">Completion Rate (%)</label>
+                            <input type="number" id="completionRate" min="0" max="100" placeholder="Enter completion rate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cost">Program Cost (₹)</label>
+                            <input type="number" id="cost" placeholder="Enter program cost" required>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="submit-btn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                                <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                                <polyline points="7 3 7 8 15 8"></polyline>
+                            </svg>
+                            Submit Data
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section id="metrics" class="metrics-container">
+            <div class="section-header">
+                <h1>Detailed Metrics</h1>
+            </div>
+            
+            <div class="metrics-filters">
+                <div class="date-range-picker">
+                    <label>Date Range:</label>
+                    <div class="date-inputs">
+                        <input type="date" id="startDateFilter">
+                        <span>to</span>
+                        <input type="date" id="endDateFilter">
+                    </div>
+                </div>
+                <div class="quick-filters">
+                    <button class="filter-btn active">Last 7 Days</button>
+                    <button class="filter-btn">Last 30 Days</button>
+                    <button class="filter-btn">Last Quarter</button>
+                    <button class="filter-btn">Custom</button>
+                </div>
+            </div>
+
+            <div class="metrics-summary">
+                <div class="summary-card">
+                    <h4>Total Programs</h4>
+                    <p class="metric-number">24</p>
+                    <p class="metric-trend positive">↑ 12% from last month</p>
+                </div>
+                <div class="summary-card">
+                    <h4>Active Learners</h4>
+                    <p class="metric-number">1,247</p>
+                    <p class="metric-trend positive">↑ 8% from last month</p>
+                </div>
+                <div class="summary-card">
+                    <h4>Average Completion</h4>
+                    <p class="metric-number">87%</p>
+                    <p class="metric-trend negative">↓ 3% from last month</p>
+                </div>
+                <div class="summary-card">
+                    <h4>Total ROI</h4>
+                    <p class="metric-number">167%</p>
+                    <p class="metric-trend positive">↑ 15% from last month</p>
+                </div>
+            </div>
+
+            <div class="metrics-insights">
+                <div class="insight-card">
+                    <div class="insight-header">
+                        <h3>Key Insights</h3>
+                        <span class="insight-period">Last 30 Days</span>
+                    </div>
+                    <ul class="insight-list">
+                        <li class="insight-item positive">
+                            <span class="insight-icon">↑</span>
+                            <div class="insight-content">
+                                <p>Completion rates increased by 15% for technical courses</p>
+                                <span class="insight-meta">Impact: High</span>
+                            </div>
+                        </li>
+                        <li class="insight-item negative">
+                            <span class="insight-icon">↓</span>
+                            <div class="insight-content">
+                                <p>Engagement dropped in soft skills training</p>
+                                <span class="insight-meta">Requires Attention</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="metrics-details">
+                <div class="metric-detail-card">
+                    <h3>Training Cost Analysis</h3>
+                    <div class="metric-info">
+                        <p>Average Cost per Employee: ₹<span id="costPerEmployee">75,000</span></p>
+                        <p>Total Annual Budget: ₹<span id="annualBudget">15,00,000</span></p>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 65%"></div>
+                        </div>
+                        <p>Budget Utilized: 65%</p>
+                        <div class="cost-breakdown">
+                            <h4>Cost Breakdown</h4>
+                            <div class="chart-container" style="position: relative; height: 300px; width: 100%; max-width: 600px;">
+                                <canvas id="costBreakdownChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="metric-detail-card">
+                    <h3>Learning Progress</h3>
+                    <div class="metric-info">
+                        <div class="progress-summary">
+                            <div class="progress-stat">
+                                <h4>Current Average</h4>
+                                <p class="stat-value">92%</p>
+                                <span class="trend positive">↑ 8%</span>
+                            </div>
+                            <div class="progress-stat">
+                                <h4>Completion Rate</h4>
+                                <p class="stat-value">95%</p>
+                                <span class="trend positive">↑ 5%</span>
+                            </div>
+                            <div class="progress-stat">
+                                <h4>Participation</h4>
+                                <p class="stat-value">92%</p>
+                                <span class="trend positive">↑ 4%</span>
+                            </div>
+                        </div>
+                        <canvas id="learningProgressChart"></canvas>
+                        <div class="progress-legend">
+                            <div class="legend-item">
+                                <span class="legend-color" style="background: #3498db"></span>
+                                <span>Quiz Performance</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color" style="background: #2ecc71"></span>
+                                <span>Assignment Progress</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color" style="background: #e74c3c"></span>
+                                <span>Active Participation</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="metric-detail-card">
+                    <h3>Skills Gap Analysis</h3>
+                    <div class="metric-info">
+                        <canvas id="skillsGapChart"></canvas>
+                    </div>
+                </div>
+                <div class="metric-detail-card">
+                    <h3>Employee Satisfaction</h3>
+                    <div class="metric-info">
+                        <canvas id="satisfactionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="reports" class="reports-container hidden-section">
+            <h1>Training Reports</h1>
+            <div class="reports-header">
+                <div class="report-filters">
+                    <div class="filter-header">
+                        <h3>Filter Reports</h3>
+                        <button type="button" class="reset-filters-btn">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 0.5rem;">
+                                <path d="M3 12a9 9 0 0 1 9-9 9 9 0 0 1 6.36 2.64"></path>
+                                <path d="M21 12a9 9 0 0 1-9 9 9 9 0 0 1-6.36-2.64"></path>
+                                <path d="M3 12h6"></path>
+                                <path d="M15 12h6"></path>
+                            </svg>
+                            Reset Filters
+                        </button>
+                    </div>
+                    <div class="filter-group">
+                        <div class="date-filter">
+                            <label for="reportDateRange">Date Range</label>
+                            <select id="reportDateRange">
+                                <option value="week">Last Week</option>
+                                <option value="month">Last Month</option>
+                                <option value="quarter">Last Quarter</option>
+                                <option value="year">Last Year</option>
+                                <option value="custom">Custom Range</option>
+                            </select>
+                        </div>
+                        <div class="program-filter">
+                            <label for="programFilter">Program</label>
+                            <select id="programFilter">
+                                <option value="all">All Programs</option>
+                                <option value="leadership">Leadership Training</option>
+                                <option value="technical">Technical Skills</option>
+                                <option value="soft">Soft Skills</option>
+                            </select>
+                        </div>
+                        <div class="department-filter">
+                            <label for="departmentFilter">Department</label>
+                            <select id="departmentFilter">
+                                <option value="all">All Departments</option>
+                                <option value="it">IT</option>
+                                <option value="hr">HR</option>
+                                <option value="finance">Finance</option>
+                                <option value="marketing">Marketing</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="filter-actions">
+                        <button type="button" class="apply-filters-btn">
+                            Apply Filters
+                        </button>
+                        <button type="button" class="export-report-btn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            Export Report
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="report-summary">
+                <h3>Report Overview</h3>
+                <div class="summary-metrics">
+                    <div class="summary-metric">
+                        <div class="metric-icon participants">👥</div>
+                        <h4>Total Participants</h4>
+                        <p>1,247</p>
+                        <span class="metric-trend positive">↑ 12% vs last period</span>
+                    </div>
+                    <div class="summary-metric">
+                        <div class="metric-icon score">📊</div>
+                        <h4>Average Score</h4>
+                        <p>85%</p>
+                        <span class="metric-trend positive">↑ 5% vs last period</span>
+                    </div>
+                    <div class="summary-metric">
+                        <div class="metric-icon cost">💰</div>
+                        <h4>Total Cost</h4>
+                        <p>₹52,00,000</p>
+                        <span class="metric-trend neutral">On budget</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="report-content">
+                <div class="report-table-container">
+                    <div class="table-header">
+                        <h3>Detailed Reports</h3>
+                        <div class="table-actions">
+                            <input type="text" placeholder="Search reports..." class="search-reports">
+                            <select class="table-view-options">
+                                <option value="all">All Entries</option>
+                                <option value="active">Active Only</option>
+                                <option value="completed">Completed Only</option>
+                            </select>
+                        </div>
+                    </div>
+                    <table class="report-table">
+                        <thead>
+                            <tr>
+                                <th>Program Name</th>
+                                <th>Participants</th>
+                                <th>Completion Rate</th>
+                                <th>Cost</th>
+                                <th>ROI</th>
+                                <th>Department</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reportTableBody">
+                            <!-- Data will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="report-pagination">
+                    <div class="pagination-info">
+                        <select class="entries-per-page">
+                            <option value="10">10 per page</option>
+                            <option value="25">25 per page</option>
+                            <option value="50">50 per page</option>
+                        </select>
+                        <span>Showing 1-10 of 50 entries</span>
+                    </div>
+                    <div class="pagination-controls">
+                        <button class="pagination-btn previous" disabled>Previous</button>
+                        <div class="page-numbers">
+                            <button class="page-btn active">1</button>
+                            <button class="page-btn">2</button>
+                            <button class="page-btn">3</button>
+                            <button class="page-btn">4</button>
+                            <button class="page-btn">5</button>
+                        </div>
+                        <button class="pagination-btn next">Next</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="data-management" class="data-management-container hidden-section">
+            <div class="management-header">
+                <h1>Training Data Management</h1>
+                <p class="section-description">Add and manage training programs across your organization</p>
+            </div>
+            
+            <div class="data-management-grid">
+                <div class="data-card add-program">
+                    <div class="card-header">
+                        <h2>Add New Training Program</h2>
+                        <div class="card-actions">
+                            <button type="button" class="help-btn" title="View guidelines">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                                </svg>
+                            </button>
+                            <button class="clear-btn">Clear Form</button>
+                        </div>
+                    </div>
+                    <form id="programForm" class="management-form">
+                        <div class="form-section">
+                            <h3 class="form-section-title">Basic Information</h3>
+                            <div class="form-group required">
+                                <label for="newProgramName">Program Name</label>
+                                <input type="text" id="newProgramName" name="programName" required 
+                                       placeholder="Enter a descriptive name for the program">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group required">
+                                    <label for="programType">Program Type</label>
+                                    <select id="programType" name="programType" required>
+                                        <option value="" disabled selected>Select Type</option>
+                                        <option value="technical">Technical Training</option>
+                                        <option value="soft-skills">Soft Skills</option>
+                                        <option value="leadership">Leadership Development</option>
+                                        <option value="compliance">Compliance Training</option>
+                                        <option value="onboarding">Onboarding</option>
+                                        <option value="professional">Professional Development</option>
+                                    </select>
+                                </div>
+                                <div class="form-group required">
+                                    <label for="department">Department</label>
+                                    <select id="department" name="department" required>
+                                        <option value="" disabled selected>Select Department</option>
+                                        <option value="it">Information Technology</option>
+                                        <option value="hr">Human Resources</option>
+                                        <option value="finance">Finance</option>
+                                        <option value="marketing">Marketing</option>
+                                        <option value="sales">Sales</option>
+                                        <option value="operations">Operations</option>
+                                        <option value="rd">Research & Development</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3 class="form-section-title">Schedule & Capacity</h3>
+                            <div class="form-row">
+                                <div class="form-group required">
+                                    <label for="startDate">Start Date</label>
+                                    <input type="date" id="startDate" name="startDate" required>
+                                </div>
+                                <div class="form-group required">
+                                    <label for="duration">Duration (weeks)</label>
+                                    <input type="number" id="duration" name="duration" min="1" required
+                                           placeholder="Enter program duration">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group required">
+                                    <label for="maxParticipants">Maximum Participants</label>
+                                    <input type="number" id="maxParticipants" name="maxParticipants" min="1" required
+                                           placeholder="Enter maximum participants">
+                                </div>
+                                <div class="form-group required">
+                                    <label for="programCost">Program Cost (₹)</label>
+                                    <input type="number" id="programCost" name="programCost" min="0" required
+                                           placeholder="Enter program cost">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="submit-btn">
+                                Add Program
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 5v14M5 12h14"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </form>
+                    <div class="manage-programs">
+                        <!-- Programs will be listed here -->
+                    </div>
+                </div>
+
+                <div class="data-card manage-programs">
+                    <div class="card-header">
+                        <h2>Manage Existing Programs</h2>
+                        <div class="header-actions">
+                            <button class="view-all-btn">
+                                View All
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M5 12h14M12 5l7 7-7 7"></path>
+                                </svg>
+                            </button>
+                            <button class="add-program-btn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 5v14M5 12h14"></path>
+                                </svg>
+                                Add Program
+                            </button>
+                        </div>
+                    </div>
+                    <div class="search-controls">
+                        <div class="search-box">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                            <input type="text" id="programSearch" placeholder="Search programs...">
+                        </div>
+                        <div class="filter-controls">
+                            <select id="statusFilter">
+                                <option value="all">All Status</option>
+                                <option value="active">Active</option>
+                                <option value="completed">Completed</option>
+                                <option value="scheduled">Scheduled</option>
+                            </select>
+                            <select id="typeFilter">
+                                <option value="all">All Types</option>
+                                <option value="technical">Technical</option>
+                                <option value="soft-skills">Soft Skills</option>
+                                <option value="leadership">Leadership</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
