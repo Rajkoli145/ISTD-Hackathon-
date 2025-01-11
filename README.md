@@ -2,6 +2,18 @@
 
 Project Details for Analytics and ROI Track
 
+Team Details: Team Name : BuildCrew Team Members:
+
+Raj Koli (2024-2028)
+Pranav Kale (2024-2028)
+R Virshin (2024-2028)
+Ayush Kumar (2024-2028)
+
+
+
+
+
+
 Project Name: Learnlytics
 Tagline: “Empowering workplace learning through actionable insights.”
 
