@@ -1,20 +1,21 @@
 # ISTD-Hackathon-
+Project Details for Analytics and ROI Track:
 
-Project Details for Analytics and ROI Track
+Team Details:
 
-Team Details: Team Name : BuildCrew Team Members:
+Team Name : TechSquad
 
-Raj Koli (2024-2028)
-Pranav Kale (2024-2028)
-R Virshin (2024-2028)
-Ayush Kumar (2024-2028)
-
-
+Team Members:
+1. Raj Koli (2024-2028)
+2. Pranav Kale (2024-2028)
+3. R Virshin (2024-2028)
+4. Ayush Kumar (2024-2028)
 
 
 
 
 Project Name: Learnlytics
+
 Tagline: “Empowering workplace learning through actionable insights.”
 
 The Problem it Solves:
